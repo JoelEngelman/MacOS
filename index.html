@@ -1,1 +1,41 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MacOS Desktop</title><link rel="stylesheet" href="styles.css"></head><body><main id="desktop" class="desktop"><header class="menubar"><span class="apple">●</span><span id="activeApp">Finder</span><span>File</span><span>Edit</span><span>View</span><span>Go</span><span>Window</span><span>Help</span><div class="menu-right"><span id="network">⌁</span><span id="searchButton">⌕</span><span id="battery">▮▮</span><span id="clock"></span></div></header><section class="desktop-icons"><div class="desktop-icon" data-open="finder"><div class="icon" id="desk-finder"></div>Macintosh HD</div><div class="desktop-icon" data-open="trash"><div class="icon" id="desk-trash"></div>Trash</div></section><div id="windows"></div><section id="launchpad" class="launchpad"><h1>Applications</h1><div id="launchGrid" class="launch-grid"></div></section><section id="spotlight" class="spotlight"><div class="spotlight-box"><input id="spotInput" placeholder="Search" autocomplete="off"><div id="spotResults" class="spot-results"></div></div></section><aside id="controlCenter" class="control-center"><div class="cc-grid"><div class="cc-card"><b>Connectivity</b><div>Wi-Fi <strong>On</strong></div><div>Bluetooth <strong>On</strong></div></div><div class="cc-card"><b>Display</b><div>Brightness</div><input id="brightness" class="cc-slider" type="range" min="20" max="100" value="80"></div><div class="cc-card"><b>Sound</b><input id="volume" class="cc-slider" type="range" min="0" max="100" value="70"></div><div class="cc-card"><b>Appearance</b><button id="darkToggle">Dark mode</button></div></div></aside><aside id="notifications" class="notification-center"><h2>Notifications</h2><div class="notification"><b>MacOS Desktop</b><br>Welcome to Desktop 2.0.</div><div class="notification"><b>System</b><br>Your simulated Mac is ready.</div></aside><div id="contextMenu" class="context-menu"><div data-action="new-folder">New Folder</div><div data-action="new-note">New Note</div><div data-action="finder">Open Finder</div><div data-action="settings">System Settings…</div><div data-action="wallpaper">Change Wallpaper</div></div><div id="toast" class="toast"></div><footer id="dock" class="dock"></footer></main><script src="renderer.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MacOS Desktop</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main id="desktop" class="desktop">
+  <header class="menubar">
+    <div class="menu-left">
+      <button class="apple-menu" aria-label="Apple menu"></button>
+      <span id="activeApp" class="active-app">Finder</span>
+      <span>File</span><span>Edit</span><span>View</span><span>Go</span><span>Window</span><span>Help</span>
+    </div>
+    <div class="menu-right">
+      <button id="network" class="status-button" aria-label="Network"><svg viewBox="0 0 24 24"><path d="M2.5 9.5a15 15 0 0 1 19 0M5.5 13a10.5 10.5 0 0 1 13 0M8.5 16.5a6 6 0 0 1 7 0M12 20h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <button id="searchButton" class="status-button" aria-label="Spotlight"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8" fill="none" stroke="currentColor" stroke-width="2"/><path d="m16 16 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <button id="battery" class="status-button battery-icon" aria-label="Battery"><span></span></button>
+      <span id="clock" class="menu-clock"></span>
+    </div>
+  </header>
+
+  <section class="desktop-icons">
+    <div class="desktop-icon" data-open="finder"><div class="icon" id="desk-finder"></div><span>Macintosh HD</span></div>
+    <div class="desktop-icon" data-open="trash"><div class="icon" id="desk-trash"></div><span>Trash</span></div>
+  </section>
+
+  <div id="windows"></div>
+  <section id="launchpad" class="launchpad"><h1>Applications</h1><div id="launchGrid" class="launch-grid"></div></section>
+  <section id="spotlight" class="spotlight"><div class="spotlight-box"><div class="spotlight-input-wrap"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8" fill="none" stroke="currentColor" stroke-width="2"/><path d="m16 16 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input id="spotInput" placeholder="Spotlight Search" autocomplete="off"></div><div id="spotResults" class="spot-results"></div></div></section>
+  <aside id="controlCenter" class="control-center"><div class="cc-grid"><div class="cc-card"><b>Connectivity</b><div>Wi-Fi <strong>On</strong></div><div>Bluetooth <strong>On</strong></div></div><div class="cc-card"><b>Display</b><div>Brightness</div><input id="brightness" class="cc-slider" type="range" min="20" max="100" value="80"></div><div class="cc-card"><b>Sound</b><input id="volume" class="cc-slider" type="range" min="0" max="100" value="70"></div><div class="cc-card"><b>Appearance</b><button id="darkToggle">Dark mode</button></div></div></aside>
+  <aside id="notifications" class="notification-center"><h2>Notifications</h2><div class="notification"><b>MacOS Desktop</b><br>Welcome to your desktop.</div><div class="notification"><b>System</b><br>Your simulated Mac is ready.</div></aside>
+  <div id="contextMenu" class="context-menu"><div data-action="new-folder">New Folder</div><div data-action="new-note">New Note</div><div data-action="finder">Open Finder</div><div data-action="settings">System Settings…</div><div data-action="wallpaper">Change Wallpaper</div></div>
+  <div id="toast" class="toast"></div>
+  <footer id="dock" class="dock"></footer>
+</main>
+<script src="renderer.js"></script>
+</body>
+</html>
