@@ -1,7 +1,7 @@
 {
   "name": "macos-desktop",
-  "version": "2.0.0",
-  "description": "A full-featured macOS-inspired desktop environment simulator built with Electron.",
+  "version": "2.1.0",
+  "description": "A full-featured independent macOS-style desktop environment simulator built with Electron.",
   "main": "main.js",
   "author": "Joel Engelman",
   "license": "MIT",
