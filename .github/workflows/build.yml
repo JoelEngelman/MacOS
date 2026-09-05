@@ -16,20 +16,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      # These tools exist only on GitHub's build machine.
-      # You do NOT need Node.js, npm, or pnpm installed locally.
       - name: Set up Node for CI
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
       - name: Install Electron dependencies
         run: npm install
-
       - name: Build Windows installer
         run: npx electron-builder --win --publish never
-
       - name: Upload Windows installer
         uses: actions/upload-artifact@v4
         with:
@@ -49,16 +43,13 @@ jobs:
         with:
           name: MacOS-Desktop-Windows
           path: release
-
       - name: Publish Windows release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          VERSION="v1.0.0"
-          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
-            VERSION="${GITHUB_REF_NAME}"
-          fi
+          VERSION="v2.0.0"
+          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then VERSION="${GITHUB_REF_NAME}"; fi
           if ! gh release view "$VERSION" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
             gh release create "$VERSION" --repo "$GITHUB_REPOSITORY" --title "MacOS Desktop $VERSION" --generate-notes
           fi
-          gh release upload "$VERSION" release/* --repo "$GITHUB_REPOSITORY" --clobber
+          gh release upload "$VERSION" release/*.exe release/*.blockmap --repo "$GITHUB_REPOSITORY" --clobber
