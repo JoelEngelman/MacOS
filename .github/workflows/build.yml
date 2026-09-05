@@ -12,16 +12,13 @@ permissions:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Node is only installed inside GitHub Actions for the build.
-      # You do NOT need Node.js/npm/pnpm on your own computer.
+      # These tools exist only on GitHub's build machine.
+      # You do NOT need Node.js, npm, or pnpm installed locally.
       - name: Set up Node for CI
         uses: actions/setup-node@v4
         with:
@@ -30,22 +27,13 @@ jobs:
       - name: Install Electron dependencies
         run: npm install
 
-      - name: Build Windows
-        if: runner.os == 'Windows'
-        run: npx electron-builder --win
+      - name: Build Windows installer
+        run: npx electron-builder --win --publish never
 
-      - name: Build Linux
-        if: runner.os == 'Linux'
-        run: npx electron-builder --linux
-
-      - name: Build macOS
-        if: runner.os == 'macOS'
-        run: npx electron-builder --mac
-
-      - name: Upload installer artifacts
+      - name: Upload Windows installer
         uses: actions/upload-artifact@v4
         with:
-          name: MacOS-Desktop-${{ runner.os }}
+          name: MacOS-Desktop-Windows
           path: dist/*
           if-no-files-found: error
 
@@ -54,14 +42,13 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
     steps:
-      - name: Download all installers
+      - name: Download Windows installer
         uses: actions/download-artifact@v4
         with:
-          pattern: MacOS-Desktop-*
-          merge-multiple: true
+          name: MacOS-Desktop-Windows
           path: release
 
-      - name: Publish GitHub Release
+      - name: Publish Windows release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -69,6 +56,7 @@ jobs:
           if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
             VERSION="${GITHUB_REF_NAME}"
           fi
-          gh release view "$VERSION" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || \
+          if ! gh release view "$VERSION" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
             gh release create "$VERSION" --repo "$GITHUB_REPOSITORY" --title "MacOS Desktop $VERSION" --generate-notes
+          fi
           gh release upload "$VERSION" release/* --repo "$GITHUB_REPOSITORY" --clobber
