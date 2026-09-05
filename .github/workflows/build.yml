@@ -34,7 +34,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: MacOS-Desktop-Windows
-          path: dist/*
+          path: |
+            dist/*.exe
+            dist/*.blockmap
           if-no-files-found: error
 
   release:
