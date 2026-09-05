@@ -1,25 +1,17 @@
 {
   "name": "macos-desktop",
-  "version": "1.0.0",
-  "description": "A macOS-inspired desktop simulator built with Electron.",
+  "version": "2.0.0",
+  "description": "A full-featured macOS-inspired desktop environment simulator built with Electron.",
   "main": "main.js",
   "author": "Joel Engelman",
   "license": "MIT",
-  "scripts": {
-    "start": "electron .",
-    "dist": "electron-builder --win --linux --mac"
-  },
-  "devDependencies": {
-    "electron": "^37.10.3",
-    "electron-builder": "^26.15.3"
-  },
+  "scripts": {"start":"electron .","dist":"electron-builder --win"},
+  "devDependencies": {"electron":"^37.10.3","electron-builder":"^26.15.3"},
   "build": {
-    "appId": "com.joelengelman.macosdesktop",
-    "productName": "MacOS Desktop",
-    "files": ["main.js", "preload.js", "index.html"],
-    "directories": { "output": "dist" },
-    "win": { "target": "nsis" },
-    "linux": { "target": "AppImage" },
-    "mac": { "target": "dmg", "category": "public.app-category.utilities" }
+    "appId":"com.joelengelman.macosdesktop",
+    "productName":"MacOS Desktop",
+    "files":["main.js","preload.js","index.html","styles.css","renderer.js"],
+    "directories":{"output":"dist"},
+    "win":{"target":"nsis"}
   }
 }
