@@ -1,0 +1,1 @@
+MacOS Desktop release pipeline fix: release assets are uploaded with explicit filenames and the release job has a timeout.
