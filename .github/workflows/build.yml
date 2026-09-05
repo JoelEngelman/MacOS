@@ -1,0 +1,32 @@
+name: Build MacOS Desktop
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm install
+      - name: Build Windows
+        if: runner.os == 'Windows'
+        run: npx electron-builder --win
+      - name: Build Linux
+        if: runner.os == 'Linux'
+        run: npx electron-builder --linux
+      - name: Build macOS
+        if: runner.os == 'macOS'
+        run: npx electron-builder --mac
+      - name: Upload installer artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: MacOS-Desktop-${{ runner.os }}
+          path: dist/*
